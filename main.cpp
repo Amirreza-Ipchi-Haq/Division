@@ -1,7 +1,7 @@
 #include<cmath>
 #include<iostream>
-#include<vector>
-bool nrrd(double d){
+#include<deque>
+bool nrrd(long double d){
 	while(fmod(d,2)<1)
 		d/=2;
 	while(d>1){
@@ -11,21 +11,21 @@ bool nrrd(double d){
 	}
 	return 1;
 }
-unsigned long long nozd(double n){
+unsigned long long nozd(long double n){
 	unsigned long long dn=0;
 	while(n/pow(10,dn)>=1)
 		dn++;
 	return dn?dn:1;
 }
-double gcd(double x,double y){
+long double gcd(long double x,long double y){
 	if(x>y)
 		x+=y,y=x-y,x-=y;
-	for(double i=x;1;i--)
+	for(long double i=x;1;i--)
 		if(fmod(x,i)<1&&fmod(y,i)<1)
 			return i;
 }
 int main(){
-	double D,d,dtgcd;
+	long double D,d,dtgcd;
 	bool nrr;
 	std::string a;
 	while(1){
@@ -44,21 +44,21 @@ int main(){
 				while(D)
 					a+=char(D/d)+'0',D=fmod(D,d)*10;
 			else{
-				std::vector<double>r;
-				for(unsigned long long i=0;1;i++){
+				std::deque<long double>r;
+				while(1){
 					r.push_back(D);
-					for(unsigned long long j=i;j--;)
-						if(r[i]==r[j]){
-							i=0;
-							if(a[0]=='-')
+					for(unsigned long long i=r.size()-1;i--;)
+						if(r.back()==r[i]){
+							unsigned long long j=-1;
+							if(a[0]=='-'){
 								std::cout<<' ';
-							for(;a[i]!='.';i++)
+								j++;
+							}
+							while(a[j++]!='.')
 								std::cout<<' ';
-							std::cout<<' ';
-							for(unsigned long long k=j;k--;i++)
+							for(unsigned long long k=i;k--&&j++;)
 								std::cout<<' ';
-							i++;
-							for(;i<a.size();i++)
+							while(j++<a.size())
 								std::cout<<'_';
 							goto f;
 						}
